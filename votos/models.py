@@ -5,7 +5,7 @@ from django.db import models
 
 # Create your models here.
 
-
+from django.conf import settings
 class Distrito(models.Model):
     """
     Se decide utilizar este modelo para la clase distrito porque es
@@ -39,6 +39,6 @@ class Votos(models.Model):
     En este comentario escribir por que se decide modelar de esta
     forma la clase
     """
-    candidato = models.ForeignKey(Candidato)
+    candidato = models.ForeignKey(Candidato, null=True)
     'Necesto saber de que candidato son los votos'
     

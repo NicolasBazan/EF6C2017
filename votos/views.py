@@ -20,11 +20,16 @@ def resultado_global(request):
     context={}
     context['distritos'] = Distrito.objects.all()
     #TODO TU CODIGO AQUI
-
+    candidatos= Candidato.objects.get(id)
+    total_votos_candidatos = Votos.objects.filter(candidato= candidato)
+    # porcentaje_candidato = (total_votos_candidatos/total_votos_eleccion)
+    votos_nulos= Votos.objects.filter(candidato__isnull=True).count()
+    total_votos_eleccion = Votos.objects.all().count()
+    porcentaje_votos_nulos= (votos_nulos/total_votos_eleccion)
     return render(request,'global.html',context)
 
 
-def resultado_distrital(request):
+def resultado_distrital(request, id):
     """
     Generar la vista para devolver el resultado distrital de la elección
     Tener en cuenta que tiene que tener:
@@ -34,7 +39,11 @@ def resultado_distrital(request):
     Candidato ganador
     """
     context={}
-
-    #TODO TU CODIGO AQUI
-
-    return render(request,'distrital.html',context)
+    districtos = Distrito.objects.all()
+    #TODO TU CODIGO 
+    padron_districto = Distrito.objects.filter(id=id)
+    for padron in padron_districto:
+        tamanio_padron= padron.cantidad_votantes
+    total_votantes = Votos.objects.filter(candidato__districto__id=id).count()
+    porcentaje_votantes= (total_votantes/tamanio_padron)
+    return render(request,'distrital.html',context,{'districtos':districtos})
