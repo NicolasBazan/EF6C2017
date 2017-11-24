@@ -28,8 +28,10 @@ class Candidato(models.Model):
     En este comentario escribir por que se decide modelar de esta
     forma la clase
     """
-    pass
-
+    nombre = models.CharField(max_length=20)
+    apellido = models.CharField(max_length=20)
+    districto = models.ForeignKey(Distrito)
+    'Necesito saber los datos del candidato, tanto el nombre como el apellido. Por otro lado necesito saber que de districto es cada candidato'
 
 class Votos(models.Model):
     """
@@ -37,4 +39,6 @@ class Votos(models.Model):
     En este comentario escribir por que se decide modelar de esta
     forma la clase
     """
-    pass
+    candidato = models.ForeignKey(Candidato)
+    'Necesto saber de que candidato son los votos'
+    
